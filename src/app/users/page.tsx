@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { getUsers } from "@/services/userService";
+import UserCard from "@/components/UserCard";
 
 export default function UsersPage() {
 
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
 
@@ -15,14 +17,15 @@ export default function UsersPage() {
 
         const data = await getUsers();
 
-        console.log(data);
-
         setUsers(data);
 
       } catch (error) {
 
         console.log(error);
 
+      } finally {
+
+        setLoading(false);
       }
     }
 
@@ -30,23 +33,34 @@ export default function UsersPage() {
 
   }, []);
 
+  if (loading) {
+    return (
+      <h1 className="p-10 text-2xl">
+        Loading...
+      </h1>
+    );
+  }
+
   return (
     <div className="p-10">
 
-      <h1 className="text-3xl font-bold mb-6">
+      <h1 className="text-4xl font-bold mb-8 text-blue-400">
         Users
       </h1>
 
-      {
-        users.map((user: any) => (
-          <div
-            key={user.id}
-            className="bg-slate-800 p-5 rounded-xl mb-4"
-          >
-            <h2>{user.username}</h2>
-          </div>
-        ))
-      }
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        {
+          users.map((user: any) => (
+            <UserCard
+              key={user.id}
+              username={user.username}
+              role={user.role}
+            />
+          ))
+        }
+
+      </div>
 
     </div>
   );
