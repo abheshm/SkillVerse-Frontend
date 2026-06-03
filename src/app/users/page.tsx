@@ -6,62 +6,61 @@ import UserCard from "@/components/UserCard";
 
 export default function UsersPage() {
 
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+    useEffect(() => {
 
-    async function fetchUsers() {
+        async function fetchUsers() {
 
-      try {
+            try {
 
-        const data = await getUsers();
+                const data = await getUsers();
 
-        setUsers(data);
+                setUsers(data);
 
-      } catch (error) {
+            } catch (error) {
 
-        console.log(error);
+                console.log(error);
 
-      } finally {
+            } finally {
 
-        setLoading(false);
-      }
-    }
-
-    fetchUsers();
-
-  }, []);
-
-  if (loading) {
-    return (
-      <h1 className="p-10 text-2xl">
-        Loading...
-      </h1>
-    );
-  }
-
-  return (
-    <div className="p-10">
-
-      <h1 className="text-4xl font-bold mb-8 text-blue-400">
-        Users
-      </h1>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        {
-          users.map((user: any) => (
-            <UserCard
-              key={user.id}
-              username={user.username}
-              role={user.role}
-            />
-          ))
+                setLoading(false);
+            }
         }
 
-      </div>
+        fetchUsers();
+    }, []);
 
-    </div>
-  );
+
+    if (loading) {
+        return (
+            <h1 className="p-10 text-2xl">
+                Loading...
+            </h1>
+        );
+    }
+
+    return (
+        <div className="p-10">
+
+            <h1 className="text-4xl font-bold mb-8 text-blue-400">
+                Users
+            </h1>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                {
+                    users.map((user: any) => (
+                        <UserCard
+                            key={user.id}
+                            username={user.username}
+                            role={user.role}
+                        />
+                    ))
+                }
+
+            </div>
+        </div>
+    );
 }
