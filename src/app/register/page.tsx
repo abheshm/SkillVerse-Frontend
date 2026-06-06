@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { registerUser } from "@/services/authService";
 
 export default function RegisterPage() {
 
@@ -20,11 +21,42 @@ export default function RegisterPage() {
             [e.target.name]: e.target.value,
         });
     };
+    const handleSubmit = async (
+        e: React.FormEvent
+    ) => {
 
-    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        console.log(formData);
+        if (
+            formData.password !==
+            formData.confirmPassword
+        ) {
+            alert("Passwords do not match");
+            return;
+        }
+
+        try {
+
+            const payload = {
+                username: formData.username,
+                email: formData.email,
+                password: formData.password,
+                role: formData.role,
+            };
+
+            const data =
+                await registerUser(payload);
+
+            console.log(data);
+
+            alert("Registration Successful");
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Registration Failed");
+        }
     };
 
     return (
