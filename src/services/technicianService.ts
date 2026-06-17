@@ -32,3 +32,22 @@ export const getTechnicianById =
 
     return response.json();
 };
+
+export const getAssignedJobs =
+  async () => {
+
+    const response =
+      await fetch(
+        "http://127.0.0.1:8000/api/technician/my_jobs/"
+      );
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Failed to fetch assigned jobs"
+      );
+
+    }
+
+    return response.json();
+};
