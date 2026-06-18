@@ -51,3 +51,25 @@ export const getAssignedJobs =
 
     return response.json();
 };
+
+export const markJobCompleted =
+  async (jobId: number) => {
+
+    const response =
+      await fetch(
+        `http://127.0.0.1:8000/api/service-requests/${jobId}/mark_completed/`,
+        {
+          method: "POST",
+        }
+      );
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Failed to mark job completed"
+      );
+
+    }
+
+    return response.json();
+};
