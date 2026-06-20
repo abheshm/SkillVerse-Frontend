@@ -45,6 +45,11 @@ export default function LoginPage() {
 
             console.log(user);
 
+            localStorage.setItem(
+                "user_id",
+                user.id.toString()
+            );
+
             if (
                 user.role === "customer"
             ) {
