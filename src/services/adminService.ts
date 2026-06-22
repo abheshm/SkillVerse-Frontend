@@ -5,10 +5,17 @@ const API_URL =
 export const getAdminStats =
     async () => {
 
+
         const token =
             localStorage.getItem(
                 "accessToken"
             );
+
+
+        console.log(
+            "TOKEN:",
+            token
+        );
 
 
         const response =
@@ -17,10 +24,26 @@ export const getAdminStats =
                 {
                     headers: {
                         Authorization:
-                        `Bearer ${token}`
+                            `Bearer ${token}`
                     }
                 }
             );
+
+
+        console.log(
+            "STATUS:",
+            response.status
+        );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "ADMIN DATA:",
+            data
+        );
 
 
         if (!response.ok) {
@@ -32,6 +55,77 @@ export const getAdminStats =
         }
 
 
+        return data;
+
+    };
+
+export const getTechnicianApplications =
+    async () => {
+
+        const token =
+            localStorage.getItem(
+                "accessToken"
+            );
+
+
+        const response =
+            await fetch(
+                "http://127.0.0.1:8000/api/technician-applications/",
+                {
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to fetch applications"
+            );
+
+        }
+
+
         return response.json();
 
-};
+    };
+
+export const approveTechnician =
+    async (id: number) => {
+
+
+        const token =
+            localStorage.getItem(
+                "accessToken"
+            );
+
+
+        const response =
+            await fetch(
+                `http://127.0.0.1:8000/api/technician-applications/${id}/approve/`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Approval failed"
+            );
+
+        }
+
+
+        return response.json();
+
+    };
