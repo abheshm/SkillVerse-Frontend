@@ -1,4 +1,9 @@
+"use client";
+
+import { useRouter } from "next/navigation"
+
 export default function Navbar() {
+  const router = useRouter();
   return (
 
     <nav className="bg-white border-b border-gray-200 flex justify-between items-center px-12 py-5 sticky top-0">
@@ -23,8 +28,8 @@ export default function Navbar() {
         </a>
 
         <a
-          href="#"
-          className="hover:text-blue-600 transition"
+          onClick={() => router.push("/register")}
+          className="hover:text-blue-600 transition cursor-pointer"
         >
           Become a Technician
         </a>
@@ -32,10 +37,16 @@ export default function Navbar() {
       </div>
 
       <div className="flex items-center gap-6">
-        <button className="text-blue-600 font-medium hover:text-blue-700">
+        <button
+          onClick={() => router.push("/login")}
+          className="text-blue-600 font-medium hover:text-blue-700"
+        >
           Login
         </button>
-        <button className="bg-blue-600 text-white px-7 py-3 rounded-full font-medium hover:bg-blue-700 transition duration-300">
+        <button
+          onClick={() => router.push("/register")}
+          className="bg-blue-600 text-white px-7 py-3 rounded-full font-medium hover:bg-blue-700 transition duration-300"
+        >
           Register
         </button>
 
