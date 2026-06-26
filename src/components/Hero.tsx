@@ -1,4 +1,9 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+
 export default function Hero() {
+    const router = useRouter();
     return (
         <section className="max-w-7xl mx-auto px-10 py-24">
             <div className="grid lg:grid-cols-2 gap-20 items-center">
@@ -26,23 +31,32 @@ export default function Hero() {
                             className="flex-1 px-4 py-3 outline-none border-l"
                         />
 
-                        <button className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700">
+                        <button
+                            onClick={() => router.push("/customer-dashboard")}
+                            className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700"
+                        >
                             Search
                         </button>
 
                     </div>
 
-                    <div className="flex gap-4 mt-10">
+                    {/* <div className="flex gap-4 mt-10">
 
-                        <button className="bg-blue-600 text-white px-8 py-4 rounded-full font-medium hover:bg-blue-700 transition">
+                        <button
+                            onClick={() => router.push("/create-request")}
+                            className="bg-blue-600 text-white px-8 py-4 rounded-full font-medium hover:bg-blue-700 transition"
+                        >
                             Hire Now
                         </button>
 
-                        <button className="bg-gray-200 text-gray-800 px-8 py-4 rounded-full font-medium hover:bg-gray-300 transition">
+                        <button
+                            onClick={() => router.push("/register")}
+                            className="bg-gray-200 text-gray-800 px-8 py-4 rounded-full font-medium hover:bg-gray-300 transition"
+                        >
                             Join as Technician
                         </button>
 
-                    </div>
+                    </div> */}
 
                 </div>
 
