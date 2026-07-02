@@ -4,6 +4,7 @@ import { useState } from "react";
 import { loginUser } from "@/services/loginServices";
 import { useRouter } from "next/navigation";
 import { getCurrentUser } from "@/services/userService";
+import { getMyApplication } from "@/services/technicianApplicationService";
 
 export default function LoginPage() {
 
@@ -60,9 +61,44 @@ export default function LoginPage() {
             else if (
                 user.role === "technician"
             ) {
-                router.push(
-                    "/technician-dashboard"
-                );
+
+                const application =
+                    await getMyApplication();
+
+                if (
+                    application.status === "approved"
+                ) {
+
+                    router.push(
+                        "/technician-dashboard"
+                    );
+
+                }
+                else if (
+                    application.status === "pending"
+                ) {
+
+                    router.push(
+                        "/technician-pending"
+                    );
+
+                }
+                else if (
+                    application.status === "rejected"
+                ) {
+
+                    router.push(
+                        "/technician-rejected"
+                    );
+
+                }
+                else {
+
+                    router.push(
+                        "/technician-application"
+                    );
+
+                }
             }
 
         } catch (error) {

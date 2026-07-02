@@ -22,4 +22,33 @@ export const createTechnicianApplication =
     }
 
     return response.json();
-};
+  };
+
+
+export const getMyApplication =
+  async () => {
+
+    const token =
+      localStorage.getItem(
+        "accessToken"
+      );
+
+    const response =
+      await fetch(
+        `${API_URL}my_application/`,
+        {
+          headers: {
+            Authorization:
+              `Bearer ${token}`,
+          },
+        }
+      );
+
+    if (!response.ok) {
+      throw new Error(
+        "Failed to fetch application"
+      );
+    }
+
+    return response.json();
+  };
