@@ -46,18 +46,16 @@ export default function LoginPage() {
 
             console.log(user);
 
-            localStorage.setItem(
-                "user_id",
-                user.id.toString()
-            );
-
             if (
                 user.role === "customer"
             ) {
+
                 router.push(
                     "/customer-dashboard"
                 );
+
             }
+
             else if (
                 user.role === "technician"
             ) {
@@ -74,6 +72,7 @@ export default function LoginPage() {
                     );
 
                 }
+
                 else if (
                     application.status === "pending"
                 ) {
@@ -83,6 +82,7 @@ export default function LoginPage() {
                     );
 
                 }
+
                 else if (
                     application.status === "rejected"
                 ) {
@@ -92,6 +92,7 @@ export default function LoginPage() {
                     );
 
                 }
+
                 else {
 
                     router.push(
@@ -99,15 +100,29 @@ export default function LoginPage() {
                     );
 
                 }
+
+            }
+
+            else if (
+                user.is_superuser
+            ) {
+
+                router.push(
+                    "/admin-dashboard"
+                );
+
             }
 
         } catch (error) {
 
             console.error(error);
 
-            alert("Invalid Username or Password");
+            alert(
+                "Invalid Username or Password"
+            );
 
         }
+
     };
 
 
