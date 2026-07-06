@@ -7,6 +7,7 @@ import AdminSidebar from "@/components/AdminSidebar";
 import AdminHeader from "@/components/AdminHeader";
 import AdminStatCard from "@/components/AdminStatCard";
 import ApplicationsTable from "@/components/ApplicationsTable";
+import AdminStats from "@/components/AdminStats";
 
 export default function AdminDashboard() {
 
@@ -98,37 +99,7 @@ export default function AdminDashboard() {
 
 
 
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-
-                    <AdminStatCard
-                        title="Customers"
-                        value={stats?.customers ?? 0}
-                        icon="👥"
-                        subtitle="Registered Users"
-                    />
-
-                    <AdminStatCard
-                        title="Technicians"
-                        value={stats?.technicians ?? 0}
-                        icon="🛠"
-                        subtitle="Approved Workers"
-                    />
-
-                    <AdminStatCard
-                        title="Pending Applications"
-                        value={stats?.pending_applications ?? 0}
-                        icon="📄"
-                        subtitle="Waiting Review"
-                    />
-
-                    <AdminStatCard
-                        title="Service Requests"
-                        value={stats?.service_requests ?? 0}
-                        icon="📋"
-                        subtitle="Active Jobs"
-                    />
-
-                </div>
+                <AdminStats stats={stats} />
 
                 <ApplicationsTable
                     applications={applications}

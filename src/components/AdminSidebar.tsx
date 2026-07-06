@@ -54,11 +54,13 @@ export default function AdminSidebar() {
                     </li>
 
                     <li>
-                        <button
-                            className="w-full text-left flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-100"
+                        <Link
+                            href="/admin/service-requests"
+                            className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 hover:text-blue-600 transition"
                         >
-                            📋 Service Requests
-                        </button>
+                            📋
+                            <span>Service Requests</span>
+                        </Link>
                     </li>
 
                 </ul>
