@@ -129,3 +129,34 @@ export const approveTechnician =
         return response.json();
 
     };
+
+export const getTechnicians =
+    async () => {
+
+        const token =
+            localStorage.getItem(
+                "accessToken"
+            );
+
+        const response =
+            await fetch(
+                "http://127.0.0.1:8000/api/technician/",
+                {
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to fetch technicians"
+            );
+
+        }
+
+        return response.json();
+
+    };

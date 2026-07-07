@@ -40,4 +40,32 @@ export const createServiceRequest =
     }
 
     return response.json();
+  };
+
+export const getServiceRequests = async () => {
+
+  const token =
+    localStorage.getItem("accessToken");
+
+  const response =
+    await fetch(API_URL, {
+
+      method: "GET",
+
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+
+    });
+
+  if (!response.ok) {
+
+    throw new Error(
+      "Failed to fetch service requests"
+    );
+
+  }
+
+  return response.json();
+
 };
