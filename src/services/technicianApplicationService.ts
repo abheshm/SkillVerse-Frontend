@@ -4,21 +4,21 @@ const API_URL =
 export const createTechnicianApplication =
   async (applicationData: any) => {
 
-    const response =
-      await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(
-          applicationData
-        ),
-      });
+    const token = localStorage.getItem("accessToken");
+
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(applicationData),
+    });
 
     if (!response.ok) {
-      throw new Error(
-        "Failed to create application"
-      );
+      const error = await response.json();
+      console.log(error);
+      throw new Error("Failed to create application");
     }
 
     return response.json();

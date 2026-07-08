@@ -14,7 +14,7 @@ export const getTechnicians =
     }
 
     return response.json();
-};
+  };
 
 export const getTechnicianById =
   async (id: string) => {
@@ -31,14 +31,25 @@ export const getTechnicianById =
     }
 
     return response.json();
-};
+  };
 
 export const getAssignedJobs =
   async () => {
 
+    const token =
+      localStorage.getItem(
+        "accessToken"
+      );
+
     const response =
       await fetch(
-        "http://127.0.0.1:8000/api/technician/my_jobs/"
+        "http://127.0.0.1:8000/api/technician/my_jobs/",
+        {
+          headers: {
+            Authorization:
+              `Bearer ${token}`
+          }
+        }
       );
 
     if (!response.ok) {
@@ -50,16 +61,27 @@ export const getAssignedJobs =
     }
 
     return response.json();
-};
+  };
 
 export const markJobCompleted =
   async (jobId: number) => {
+
+    const token =
+      localStorage.getItem(
+        "accessToken"
+      );
 
     const response =
       await fetch(
         `http://127.0.0.1:8000/api/service-requests/${jobId}/mark_completed/`,
         {
           method: "POST",
+
+          headers: {
+            Authorization:
+              `Bearer ${token}`
+          }
+
         }
       );
 
@@ -72,4 +94,4 @@ export const markJobCompleted =
     }
 
     return response.json();
-};
+  };

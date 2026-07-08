@@ -160,3 +160,45 @@ export const getTechnicians =
         return response.json();
 
     };
+
+export const assignTechnician =
+    async (
+        requestId: number,
+        technicianId: number
+    ) => {
+
+        const token =
+            localStorage.getItem(
+                "accessToken"
+            );
+
+        const response =
+            await fetch(
+                `http://127.0.0.1:8000/api/service-requests/${requestId}/assign_technician/`,
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+
+                    body: JSON.stringify({
+                        technician_id: technicianId
+                    })
+
+                }
+            );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to assign technician"
+            );
+
+        }
+
+        return response.json();
+
+    };

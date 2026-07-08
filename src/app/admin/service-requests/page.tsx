@@ -4,9 +4,14 @@ import AdminSidebar from "@/components/AdminSidebar";
 import AdminHeader from "@/components/AdminHeader";
 import { useEffect, useState } from "react";
 import { getServiceRequests } from "@/services/serviceRequestService";
-
+import { getTechnicians, assignTechnician } from "@/services/adminService";
 export default function ServiceRequestsPage() {
+
     const [requests, setRequests] = useState<any[]>([]);
+    const [technicians, setTechnicians] =
+        useState<any[]>([]);
+    const [selectedTechnicians, setSelectedTechnicians] =
+        useState<{ [key: number]: number }>({});
     useEffect(() => {
 
         const loadRequests = async () => {
@@ -19,6 +24,17 @@ export default function ServiceRequestsPage() {
                 setRequests(data);
 
                 console.log(data);
+                const technicians =
+                    await getTechnicians();
+
+                setTechnicians(
+                    technicians
+                );
+
+                console.log(
+                    "TECHNICIANS:",
+                    technicians
+                );
 
             } catch (error) {
 
@@ -31,6 +47,51 @@ export default function ServiceRequestsPage() {
         loadRequests();
 
     }, []);
+    const handleAssign =
+        async (requestId: number) => {
+
+            const technicianId =
+                selectedTechnicians[requestId];
+
+            if (!technicianId) {
+
+                alert(
+                    "Please select a technician."
+                );
+
+                return;
+
+            }
+
+            try {
+
+                await assignTechnician(
+                    requestId,
+                    technicianId
+                );
+
+                const updatedRequests =
+                    await getServiceRequests();
+
+                setRequests(
+                    updatedRequests
+                );
+
+                alert(
+                    "Technician assigned successfully!"
+                );
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "Assignment failed."
+                );
+
+            }
+
+        };
     return (
         <div className="flex bg-gray-100 min-h-screen">
 
@@ -134,13 +195,41 @@ export default function ServiceRequestsPage() {
 
                                         <td className="p-4">
 
-                                            <button
-                                                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                                            <select
+
+                                                value={
+                                                    selectedTechnicians[request.id] ?? ""
+                                                }
+
+                                                onChange={(e) =>
+                                                    setSelectedTechnicians({
+                                                        ...selectedTechnicians,
+                                                        [request.id]: Number(e.target.value),
+                                                    })
+                                                }
+
+                                                className="border rounded-lg px-3 py-2 w-full"
+
                                             >
 
-                                                View
+                                                <option value="">
+                                                    Select Technician
+                                                </option>
 
-                                            </button>
+                                                {technicians.map((technician: any) => (
+
+                                                    <option
+                                                        key={technician.id}
+                                                        value={technician.id}
+                                                    >
+
+                                                        {technician.user.username}
+
+                                                    </option>
+
+                                                ))}
+
+                                            </select>
 
                                         </td>
 

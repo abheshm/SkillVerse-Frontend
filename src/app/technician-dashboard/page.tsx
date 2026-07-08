@@ -70,59 +70,98 @@ export default function TechnicianDashboard() {
                 Technician Dashboard
             </h1>
 
-            <div className="grid gap-6">
+            <div className="bg-white rounded-2xl shadow p-6">
 
-                {jobs.map((job: any) => (
+                <h2 className="text-2xl font-bold mb-6">
+                    My Assigned Jobs
+                </h2>
 
-                    <div
-                        key={job.id}
-                        className="bg-white rounded-2xl shadow-md p-6 border border-gray-100"
-                    >
+                <div className="overflow-x-auto">
 
-                        <div className="flex justify-between items-start">
+                    <table className="w-full">
 
-                            <div>
+                        <thead>
 
-                                <h2 className="text-xl font-semibold">
-                                    Service Request #{job.id}
-                                </h2>
+                            <tr className="border-b">
 
-                                <p className="mt-2 text-gray-600">
-                                    {job.description}
-                                </p>
+                                <th className="text-left p-3">
+                                    Customer
+                                </th>
 
-                            </div>
+                                <th className="text-left p-3">
+                                    Description
+                                </th>
 
-                            <span
-                                className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm"
-                            >
-                                {job.status}
-                            </span>
+                                <th className="text-left p-3">
+                                    Status
+                                </th>
 
-                        </div>
+                                <th className="text-left p-3">
+                                    Created
+                                </th>
 
-                        <div className="mt-5 flex gap-3">
+                                <th className="text-left p-3">
+                                    Action
+                                </th>
 
-                            <button
-                                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-                            >
-                                View Details
-                            </button>
+                            </tr>
 
-                            <button
-                                onClick={() =>
-                                    handleMarkComplete(job.id)
-                                }
-                                className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
-                            >
-                                Mark Complete
-                            </button>
+                        </thead>
 
-                        </div>
+                        <tbody>
 
-                    </div>
+                            {jobs.map((job: any) => (
 
-                ))}
+                                <tr
+                                    key={job.id}
+                                    className="border-b"
+                                >
+
+                                    <td className="p-3">
+                                        {job.customer_name}
+                                    </td>
+
+                                    <td className="p-3">
+                                        {job.description}
+                                    </td>
+
+                                    <td className="p-3">
+                                        {job.status}
+                                    </td>
+
+                                    <td className="p-3">
+                                        {new Date(
+                                            job.created_at
+                                        ).toLocaleDateString()}
+                                    </td>
+
+                                    <td className="p-3">
+
+                                        <button
+
+                                            onClick={() =>
+                                                handleMarkComplete(job.id)
+                                            }
+
+                                            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+
+                                        >
+
+                                            Mark Complete
+
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+
+                            ))}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
 
             </div>
 

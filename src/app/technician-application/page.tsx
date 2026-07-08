@@ -34,25 +34,7 @@ export default function TechnicianApplicationPage() {
 
         try {
 
-            const userId =
-                localStorage.getItem(
-                    "user_id"
-                );
-
-
-            if (!userId) {
-
-                alert(
-                    "User not found. Please login again."
-                );
-
-                return;
-            }
-
-
             const payload = {
-
-                user: Number(userId),
 
                 full_name:
                     formData.full_name,
